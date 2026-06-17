@@ -1,3 +1,8 @@
+## 0.3.2
+
+- Switch the coverage badge to a self-hosted shields.io endpoint (no external
+  service required) after Codecov dropped tokenless uploads.
+
 ## 0.3.1
 
 - Docs: status badges (pub, CI, coverage, license) and a "Why this package?"
