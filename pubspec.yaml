@@ -1,0 +1,25 @@
+name: shia_hijri_calendar
+description: >-
+  Official Shia (Sistani office) Hijri date for Dart & Flutter. Reads the
+  authoritative date from sistani.org, caches it, and counts locally between
+  month boundaries.
+version: 0.2.0
+repository: https://github.com/alialrikabi/shia_hijri_calendar
+issue_tracker: https://github.com/alialrikabi/shia_hijri_calendar/issues
+topics:
+  - hijri
+  - calendar
+  - islamic
+  - shia
+  - date
+
+environment:
+  sdk: ^3.12.1
+
+dependencies:
+  http: ^1.2.0
+  html: ^0.15.4
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.6
