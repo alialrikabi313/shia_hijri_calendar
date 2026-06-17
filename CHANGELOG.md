@@ -1,3 +1,11 @@
+## 0.3.1
+
+- Docs: status badges (pub, CI, coverage, license) and a "Why this package?"
+  section in the README.
+- CI: measure coverage and upload to Codecov; exclude live tests from CI.
+- Add a weekly source-monitor workflow that opens an issue if the sistani.org
+  scraper breaks, plus a `live`-tagged integration test.
+
 ## 0.3.0
 
 - **Religious occasions** (مناسبات): bundled Shia occasions dataset

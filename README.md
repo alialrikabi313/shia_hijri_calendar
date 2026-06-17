@@ -1,5 +1,12 @@
 # shia_hijri_calendar
 
+[![pub package](https://img.shields.io/pub/v/shia_hijri_calendar.svg)](https://pub.dev/packages/shia_hijri_calendar)
+[![pub points](https://img.shields.io/pub/points/shia_hijri_calendar)](https://pub.dev/packages/shia_hijri_calendar/score)
+[![likes](https://img.shields.io/pub/likes/shia_hijri_calendar)](https://pub.dev/packages/shia_hijri_calendar/score)
+[![CI](https://github.com/alialrikabi313/shia_hijri_calendar/actions/workflows/ci.yml/badge.svg)](https://github.com/alialrikabi313/shia_hijri_calendar/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/alialrikabi313/shia_hijri_calendar/branch/main/graph/badge.svg)](https://codecov.io/gh/alialrikabi313/shia_hijri_calendar)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Official **Shia (Sistani office) Hijri date** for Dart & Flutter.
 
 The Shia Hijri calendar follows **actual moon sighting** (رؤية الهلال) as
@@ -8,6 +15,19 @@ day from the calculated Umm al-Qura calendar. This package reads the
 authoritative date directly from [sistani.org](https://www.sistani.org/),
 caches it, and counts locally between month boundaries — so it only touches the
 network at the **start and end of a Hijri month**.
+
+## Why this package?
+
+Most Hijri date libraries compute dates with a fixed arithmetic formula
+(Umm al-Qura / tabular). But the Shia calendar is **sighting-based**: the month
+begins only when the crescent is actually confirmed by the office of al-Sistani,
+which can land a day off from any formula. There was no API for it — the
+official date is rendered into the `#home-date` element of the sistani.org home
+page. This package treats that as a data source: it fetches the authoritative
+date, anchors it, and then derives every other day locally (a Hijri month is
+always 29–30 days), fetching again only at month boundaries. The result is an
+accurate, offline-friendly, sighting-correct calendar that no formula-only
+library can match.
 
 > التقويم الهجري عند الشيعة يعتمد على **رؤية الهلال** كما يعلنها مكتب السيد
 > السيستاني، وقد يختلف يوماً عن تقويم أم القرى. هذه الحزمة تجيب التاريخ الرسمي

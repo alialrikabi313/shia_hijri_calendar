@@ -1,0 +1,4 @@
+tags:
+  live:
+    # Tests that hit the live sistani.org site. Excluded from normal CI
+    # (`dart test -x live`); run by the scheduled source monitor.

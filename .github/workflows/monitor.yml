@@ -1,0 +1,40 @@
+name: Monitor source
+
+# Weekly check that sistani.org still serves a parseable date. If the site
+# markup changes and the scraper breaks, this opens a tracking issue.
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # every Monday 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - run: dart pub get
+      - name: Live source check
+        run: dart test -t live
+      - name: Open an issue if the source broke
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          open=$(gh issue list --state open \
+            --search 'Source check failed in:title' --json number --jq 'length')
+          if [ "$open" -eq 0 ]; then
+            gh issue create \
+              --title "⚠️ Source check failed — sistani.org parsing may be broken" \
+              --body "The scheduled live check failed. The sistani.org markup may have changed, breaking \`SistaniHijriSource\`. Failed run: $RUN_URL"
+          else
+            echo "An open tracking issue already exists; skipping."
+          fi
