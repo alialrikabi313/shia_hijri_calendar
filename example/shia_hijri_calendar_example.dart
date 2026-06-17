@@ -22,6 +22,12 @@ Future<void> main() async {
 
     final h2g = calendar.hijriToGregorian(HijriDate(1448, 1, 10));
     print('H->G   : 10 Muharram 1448 = $h2g');
+
+    // Religious occasions — makes it a full calendar.
+    final onAshura = calendar.occasionsOn(HijriDate(1448, 1, 10));
+    print('Event  : ${onAshura.map((o) => o.arabicName).join(', ')}');
+    print('Rajab  : ${calendar.occasionsInMonth(7).length} occasions');
+    print('Today is holiday? ${calendar.isHoliday(today)}');
   } finally {
     calendar.close();
   }

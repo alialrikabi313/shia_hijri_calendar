@@ -229,4 +229,49 @@ void main() {
       expect(c.source, ConversionSource.estimated);
     });
   });
+
+  group('occasions', () {
+    final cal = ShiaHijriCalendar();
+
+    test('finds Ashura on 10 Muharram', () {
+      final hits = cal.occasionsOn(HijriDate(1448, 1, 10));
+      expect(hits, hasLength(1));
+      expect(hits.single.englishName, contains('Ashura'));
+      expect(hits.single.type, OccasionType.martyrdom);
+      expect(cal.isHoliday(HijriDate(1448, 1, 10)), isTrue);
+    });
+
+    test('plain days have no occasion', () {
+      expect(cal.occasionsOn(HijriDate(1448, 1, 12)), isEmpty);
+      expect(cal.isHoliday(HijriDate(1448, 1, 12)), isFalse);
+    });
+
+    test('lists a month sorted by day', () {
+      final rajab = cal.occasionsInMonth(7);
+      expect(rajab, isNotEmpty);
+      final days = rajab.map((o) => o.day).toList();
+      final sorted = [...days]..sort();
+      expect(days, sorted);
+      expect(rajab.any((o) => o.day == 27), isTrue); // Mab'ath
+    });
+
+    test('accepts a custom occasion list', () {
+      final custom = ShiaHijriCalendar(
+        occasions: const [
+          IslamicOccasion(
+            month: 1,
+            day: 1,
+            arabicName: 'مناسبة',
+            englishName: 'Custom',
+            type: OccasionType.religious,
+          ),
+        ],
+      );
+      expect(
+        custom.occasionsOn(HijriDate(1448, 1, 1)).single.englishName,
+        'Custom',
+      );
+      expect(custom.occasionsOn(HijriDate(1448, 1, 10)), isEmpty);
+    });
+  });
 }

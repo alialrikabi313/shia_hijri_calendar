@@ -2,9 +2,11 @@ import 'anchor_store.dart';
 import 'hijri_conversion.dart';
 import 'hijri_date.dart';
 import 'hijri_date_source.dart';
+import 'islamic_occasion.dart';
 import 'month_start.dart';
 import 'official_anchors.dart';
 import 'shia_hijri_snapshot.dart';
+import 'shia_occasions.dart';
 import 'sistani_source.dart';
 import 'tabular_islamic.dart';
 
@@ -32,15 +34,18 @@ class ShiaHijriCalendar {
     AnchorStore? store,
     DateTime Function()? clock,
     Iterable<MonthStart>? seed,
+    List<IslamicOccasion>? occasions,
   }) : _source = source ?? SistaniHijriSource(),
        _store = store ?? MemoryAnchorStore(),
        _clock = clock ?? DateTime.now,
-       _table = MonthStartTable(seed ?? officialMonthStarts());
+       _table = MonthStartTable(seed ?? officialMonthStarts()),
+       _occasions = occasions ?? shiaOccasions();
 
   final HijriDateSource _source;
   final AnchorStore _store;
   final DateTime Function() _clock;
   final MonthStartTable _table;
+  final List<IslamicOccasion> _occasions;
 
   ShiaHijriSnapshot? _cached;
   bool _loaded = false;
@@ -129,6 +134,28 @@ class ShiaHijriCalendar {
       ConversionSource.estimated,
     );
   }
+
+  /// All known religious occasions (the default Shia set, or the custom list
+  /// passed to the constructor).
+  List<IslamicOccasion> get occasions => List.unmodifiable(_occasions);
+
+  /// Religious occasions that fall on [date] (usually zero or one).
+  List<IslamicOccasion> occasionsOn(HijriDate date) =>
+      _occasions.where((o) => o.matches(date)).toList(growable: false);
+
+  /// All occasions in a Hijri [month] (1..12), sorted by day.
+  List<IslamicOccasion> occasionsInMonth(int month) =>
+      (_occasions.where((o) => o.month == month).toList()
+            ..sort((a, b) => a.day.compareTo(b.day)))
+          .toList(growable: false);
+
+  /// Whether [date] is commonly an official holiday.
+  bool isHoliday(HijriDate date) => occasionsOn(date).any((o) => o.isHoliday);
+
+  /// Convenience: today's date together with its occasions.
+  Future<List<IslamicOccasion>> occasionsToday({
+    bool forceRefresh = false,
+  }) async => occasionsOn(await today(forceRefresh: forceRefresh));
 
   /// Records a snapshot in memory and folds its implied month start into the
   /// conversion table.

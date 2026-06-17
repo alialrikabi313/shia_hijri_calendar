@@ -19,6 +19,8 @@ network at the **start and end of a Hijri month**.
 - ✅ Today's official Shia Hijri date (`today()`).
 - ✅ Bidirectional conversion `gregorianToHijri()` / `hijriToGregorian()`,
   flagged **verified** (known boundary) or **estimated** (tabular fallback).
+- ✅ Built-in Shia **religious occasions** (مناسبات) — Ashura, Arbaeen, Eids,
+  births/martyrdoms — with holiday flags; fully customizable.
 - ✅ Offline between month edges (verified boundaries + local arithmetic).
 - ✅ Arabic / English / ISO formatting.
 - ✅ Pluggable cache (`MemoryAnchorStore`, or your own via `StringAnchorStore`).
@@ -66,6 +68,39 @@ Verified results come from official month boundaries — seeded via
 `officialMonthStarts()` and learned from each successful fetch. Add confirmed
 boundaries to `officialMonthStarts()` to widen exact coverage; everything else
 uses the tabular (`TabularIslamicCalendar`) approximation.
+
+### Religious occasions (مناسبات)
+
+```dart
+final calendar = ShiaHijriCalendar();
+
+// What falls today?
+for (final o in await calendar.occasionsToday()) {
+  print('${o.arabicName} (${o.type.name})');
+}
+
+// All occasions in a month, or on a specific date:
+calendar.occasionsInMonth(1);                 // Muharram: Ashura, Tasua, ...
+calendar.occasionsOn(HijriDate(1448, 1, 10)); // عاشوراء
+calendar.isHoliday(HijriDate(1448, 12, 18));  // true (Eid al-Ghadir)
+```
+
+Dates follow the commonly observed Imami convention. Some occasions have more
+than one narration — pass your own list to fully control them:
+
+```dart
+final calendar = ShiaHijriCalendar(
+  occasions: [
+    ...shiaOccasions(), // start from the defaults
+    const IslamicOccasion(
+      month: 6, day: 13,
+      arabicName: 'وفاة السيدة فاطمة (ع) - رواية',
+      englishName: 'Martyrdom of Lady Fatima (alt.)',
+      type: OccasionType.martyrdom,
+    ),
+  ],
+);
+```
 
 ### How fetching works
 

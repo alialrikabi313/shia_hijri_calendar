@@ -3,7 +3,7 @@ description: >-
   Official Shia (Sistani office) Hijri date for Dart & Flutter. Reads the
   authoritative date from sistani.org, caches it, and counts locally between
   month boundaries.
-version: 0.2.0
+version: 0.3.0
 repository: https://github.com/alialrikabi313/shia_hijri_calendar
 issue_tracker: https://github.com/alialrikabi313/shia_hijri_calendar/issues
 topics:

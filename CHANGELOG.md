@@ -1,3 +1,12 @@
+## 0.3.0
+
+- **Religious occasions** (مناسبات): bundled Shia occasions dataset
+  (`shiaOccasions()`) with Arabic/English names, type, and holiday flag.
+- New API: `occasionsOn()`, `occasionsInMonth()`, `occasionsToday()`,
+  `isHoliday()`, and an `occasions:` constructor argument to fully customize the
+  set.
+- `IslamicOccasion` / `OccasionType` models.
+
 ## 0.2.0
 
 - **Bidirectional conversion**: `gregorianToHijri()` and `hijriToGregorian()`,
