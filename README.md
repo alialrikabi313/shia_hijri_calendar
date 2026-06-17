@@ -4,7 +4,7 @@
 [![pub points](https://img.shields.io/pub/points/shia_hijri_calendar)](https://pub.dev/packages/shia_hijri_calendar/score)
 [![likes](https://img.shields.io/pub/likes/shia_hijri_calendar)](https://pub.dev/packages/shia_hijri_calendar/score)
 [![CI](https://github.com/alialrikabi313/shia_hijri_calendar/actions/workflows/ci.yml/badge.svg)](https://github.com/alialrikabi313/shia_hijri_calendar/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/alialrikabi313/shia_hijri_calendar/branch/main/graph/badge.svg)](https://codecov.io/gh/alialrikabi313/shia_hijri_calendar)
+[![coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/alialrikabi313/shia_hijri_calendar/badges/coverage.json)](https://github.com/alialrikabi313/shia_hijri_calendar/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Official **Shia (Sistani office) Hijri date** for Dart & Flutter.
