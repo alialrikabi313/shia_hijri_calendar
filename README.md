@@ -51,7 +51,7 @@ library can match.
 
 ```yaml
 dependencies:
-  shia_hijri_calendar: ^0.2.0
+  shia_hijri_calendar: ^0.3.2
 ```
 
 ## Usage

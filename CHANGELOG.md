@@ -1,3 +1,8 @@
+## 0.3.3
+
+- Docs: fix the README install snippet (was `^0.2.0`, a version that was never
+  published) to `^0.3.2`.
+
 ## 0.3.2
 
 - Switch the coverage badge to a self-hosted shields.io endpoint (no external
