@@ -1,0 +1,3 @@
+# Normalize line endings to LF in the repo so CI formatting checks are stable
+# across Windows/macOS/Linux.
+* text=auto eol=lf
